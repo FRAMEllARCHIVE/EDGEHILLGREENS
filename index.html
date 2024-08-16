@@ -1743,7 +1743,7 @@ const filteredProducts = products.filter(product => {
         });
 
         productCard.querySelector('.favorite').addEventListener('click', function() {
-                    const productURL = `${window.location.origin}/EDGEHILLGREENS/#${productID1}`;
+                    const productURL = `${window.location.origin}/EDGEHILLGREENS/#${productID}`;
           navigator.clipboard.writeText(productURL).then(() => {
             alert('Link saved to clipboard');
           }).catch(err => {
