@@ -957,12 +957,16 @@ const productTagsInput = document.getElementById('productTags');
 const productTagContainer = document.getElementById('productTagContainer');
 let productTags = [];
 
-productTagsInput.addEventListener('keydown', function(e) {
-  if (e.key === 'Enter' && this.value.trim() !== '') {
-    addProductTag(this.value.trim());
-    this.value = '';
-  }
+pproductTagsInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === 'Go') {
+        if (this.value.trim() !== '') {
+            addProductTag(this.value.trim());
+            this.value = '';
+            e.preventDefault();
+        }
+    }
 });
+
 
 function formatTag(tagText) {
     return tagText.trim().toLowerCase().replace(/\s+/g, '%20');
@@ -1141,7 +1145,9 @@ function getListings() {
                 const year = parseInt(expiryDateString.substring(0, 4));
                 const month = parseInt(expiryDateString.substring(4, 6)) - 1;
                 const day = parseInt(expiryDateString.substring(6, 8));
-                const expiryDate = new Date(year, month, day);
+                const hour = parseInt(expiryDateString.substring(8, 10));
+                const minute = parseInt(expiryDateString.substring(10, 12));
+                const expiryDate = new Date(year, month, day, hour, minute);
 
                 productCard2.innerHTML = `
                     <span class="favorite">
@@ -1181,7 +1187,7 @@ function getListings() {
                 });
 
                 productCard2.querySelector('.favorite').addEventListener('click', function() {
-                    const productURL = `${window.location.origin}/#${productID1}`;
+                    const productURL = `${window.location.origin}/EDGEHILLGREENS/#${productID1}`;
                     navigator.clipboard.writeText(productURL).then(() => {
                         alert('Link saved to clipboard');
                     }).catch(err => {
@@ -1738,7 +1744,7 @@ const filteredProducts = products.filter(product => {
         });
 
         productCard.querySelector('.favorite').addEventListener('click', function() {
-          const productURL = `${window.location.origin}/#${productID}`;
+                    const productURL = `${window.location.origin}/EDGEHILLGREENS/#${productID1}`;
           navigator.clipboard.writeText(productURL).then(() => {
             alert('Link saved to clipboard');
           }).catch(err => {
