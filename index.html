@@ -958,17 +958,19 @@ const productTagContainer = document.getElementById('productTagContainer');
 let productTags = [];
 
 productTagsInput.addEventListener('keydown', function(e) {
-    // Define a set of keys that should trigger the same behavior
-    const validKeys = ['Enter', 'Go', 'Next'];
-    const validKeyCodes = [13, 9]; // Enter = 13, Tab = 9 (used as Next on some devices)
-
-    // Check if the pressed key is in our list of valid keys or key codes
-    if (validKeys.includes(e.key) || validKeyCodes.includes(e.keyCode)) {
+    if (e.key === 'Enter' || e.keyCode === 13) {
         if (this.value.trim() !== '') {
             addProductTag(this.value.trim());
             this.value = '';
             e.preventDefault();
         }
+    }
+});
+
+productTagsInput.addEventListener('blur', function() {
+    if (this.value.trim() !== '') {
+        addProductTag(this.value.trim());
+        this.value = '';
     }
 });
 
