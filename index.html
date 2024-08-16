@@ -957,7 +957,7 @@ const productTagsInput = document.getElementById('productTags');
 const productTagContainer = document.getElementById('productTagContainer');
 let productTags = [];
 
-pproductTagsInput.addEventListener('keydown', function(e) {
+productTagsInput.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' || e.key === 'Go') {
         if (this.value.trim() !== '') {
             addProductTag(this.value.trim());
