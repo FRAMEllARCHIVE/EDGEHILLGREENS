@@ -1526,11 +1526,12 @@ function handleHashChange() {
 
     if (hash) {
         tags = [];
-        addTags(hash);
+        addTags(hash.split(','));
     }
     
     renderTags();
 }
+
 
 window.addEventListener('hashchange', handleHashChange);
 
