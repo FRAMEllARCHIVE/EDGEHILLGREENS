@@ -958,7 +958,7 @@ const productTagContainer = document.getElementById('productTagContainer');
 let productTags = [];
 
 productTagsInput.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === 'Go') {
+    if (e.key === 'Enter' || e.key === 'Go' || e.key === 'Next') {
         if (this.value.trim() !== '') {
             addProductTag(this.value.trim());
             this.value = '';
@@ -966,7 +966,6 @@ productTagsInput.addEventListener('keydown', function(e) {
         }
     }
 });
-
 
 function formatTag(tagText) {
     return tagText.trim().toLowerCase().replace(/\s+/g, '%20');
