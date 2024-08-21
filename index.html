@@ -118,45 +118,52 @@ body {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
+.product-card .product-title-icon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-card .icons-container {
+    position: relative;
+}
+
 .product-card .favorite {
-      position: absolute;
-      top: 206px;
-      right: 3px;
-      color: #f39c12;
-      cursor: pointer;
-      z-index: 1003;
-      opacity: 0.9;
-      transition: 0.3s ease;
-      padding: 10px;
+    color: #f39c12;
+    cursor: pointer;
+    z-index: 1003;
+    opacity: 0.7;
+    transition: 0.3s ease;
+    padding: 10px;
 }
 
 .product-card .favorite:hover {
       color: #e67e22;
-      transform: scale(1.2);
-      opacity: 0.9;
+      transform: scale(1.1);
+      opacity: 1;
 }
 
-.product-card .favorite.clicked {
-    color: #e67e22;
-    transform: scale(1.1);
-    opacity: 1;
+.product-card .product-title {
+      font-size: 1.2rem;
+  margin: 0;
 }
 
 .product-card .refresh-icon {
-        position: absolute;
-      top: 233px;
-      right: 0px;
-        color: #2980b9;
-        cursor: pointer;
-        z-index: 1003;
-        opacity: 0.8;
-        transition: 0.3s ease;
-        padding: 15px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0px;
+    color: #2980b9;
+    cursor: pointer;
+    z-index: 1003;
+    opacity: 0.9;
+    transition: 0.3s ease;
+    padding: 10px;
 }
 
 .product-card .refresh-icon:hover {
-        opacity: 0.9;
-        transform: scale(1.1);
+    opacity: 1;
+    transform: scale(1.1);
 }
 
 .rotate {
@@ -180,8 +187,8 @@ body {
 
 .product-video-container {
     position: relative;
-    height: 200px;
     width: 100%;
+padding-top: 56.25%; 
     overflow: hidden;
     background-color: black;
 }
@@ -190,8 +197,8 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    height: 105.5%;
-    width: 105.5%;
+    height: 102%;
+    width: 102%;
     transform: translate(-50%, -50%);
     object-fit: cover;
 }
@@ -199,11 +206,6 @@ body {
 
     .product-info {
       padding: 15px;
-    }
-
-    .product-title {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
     }
 
     .product-description {
@@ -490,16 +492,23 @@ footer {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
+.product-card2 .product-title-icon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-card2 .icons-container {
+    position: relative;
+}
+
 .product-card2 .favorite {
-      position: absolute;
-      top: 206px;
-      right: 3px;
-      color: #FFFF00;
-      cursor: pointer;
-      z-index: 1003;
-      opacity: 0.7;
-      transition: 0.3s ease;
-      padding: 10px;
+    color: #FFFF00;
+    cursor: pointer;
+    z-index: 1003;
+    opacity: 0.7;
+    transition: 0.3s ease;
+    padding: 10px;
 }
 
 .product-card2 .favorite:hover {
@@ -508,21 +517,26 @@ footer {
       opacity: 1;
 }
 
+.product-card2 .product-title {
+  margin: 0;
+}
+
 .product-card2 .refresh-icon {
-      position: absolute;
-      top: 233px;
-      right: 0px;
-      color: #2980b9;
-      cursor: pointer;
-      z-index: 1003;
-      opacity: 0.9;
-      transition: 0.3s ease;
-      padding: 15px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0px;
+    color: #2980b9;
+    cursor: pointer;
+    z-index: 1003;
+    opacity: 0.9;
+    transition: 0.3s ease;
+    padding: 10px;
 }
 
 .product-card2 .refresh-icon:hover {
-      opacity: 1;
-      transform: scale(1.1);
+    opacity: 1;
+    transform: scale(1.1);
 }
 
 .product-price2 {
@@ -564,6 +578,7 @@ footer {
       opacity: 0.5;
     }
 
+
   #search-input {
     width: 100%;
     padding: 10px 15px;
@@ -603,6 +618,35 @@ footer {
   font-size: 16px;
   outline: none;
 }
+
+.support-button {
+    background-color: white;
+    color: #2ecc71;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-top: 10px;
+font-weight: 500;
+}
+
+.support-button:hover {
+    animation: bounce 0.5s ease infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+
+
 
   </style>
 </head>
@@ -1181,21 +1225,25 @@ function getListings() {
                 const expiryDate = new Date(year, month, day, hour, minute);
 
                 productCard2.innerHTML = `
-                    <span class="favorite">
-                        <i class="fa fa-star"></i>
-                    </span>
-                    <i class="fas fa-sync-alt refresh-icon"></i>
                     <div class="product-video-container">
                         <iframe class="product-video" src="${updatedVideoUrl}" frameborder="0" allowfullscreen></iframe>
                     </div>
                     <div class="product-info">
+                    <div class="product-title-icon">
                         <h2 class="product-title">${productTitle}</h2>
+                        <div class="icons-container">
+                            <span class="favorite">
+                                <i class="fa fa-star"></i>
+                            </span>
+                            <i class="fas fa-sync-alt refresh-icon"></i>
+                        </div>
+                    </div>
                         <p class="product-description2">${productDescription}</p>
                         <p class="product-price2" data-current-price="${currentPrice}">Current Price: R${currentPrice}</p> 
                         <p class="highest-bidder"></p>
                         <p class="bidder-contact"></p>
                         <p class="bid-time"></p>
-                        <br>
+                        <button class="support-button" onclick="window.open('https://pos.snapscan.io/qr/w1hRjQUu', '_blank')">DONATE</button>
                         <p class="countdown2"></p>
                         <p class="product-id" style="display: none;">${productID1}</p>
                     </div>
@@ -1613,26 +1661,26 @@ function fetchProducts() {
         }
       });
 
-const filteredProducts = products.filter(product => {
-  const productTags = product.Tags.map(tag => decodeURIComponent(tag));
-  const formattedTags = tags.map(tag => decodeURIComponent(formatTag(tag)));
-  const hasMatchingTag = formattedTags.some(tag => productTags.includes(tag));
-  const isSellerDifferent = product.Seller !== ownerId;
+      const filteredProducts = products.filter(product => {
+        const productTags = product.Tags.map(tag => decodeURIComponent(tag));
+        const formattedTags = tags.map(tag => decodeURIComponent(formatTag(tag)));
+        const hasMatchingTag = formattedTags.some(tag => productTags.includes(tag));
+        const isSellerDifferent = product.Seller !== ownerId;
 
-  return hasMatchingTag && isSellerDifferent;
-});
+        return hasMatchingTag && isSellerDifferent;
+      });
 
       filteredProducts.forEach(product => {
         const productCard = document.createElement('div');
         productCard.classList.add('product-card');
 
-        const videoUrl = product.ProductVideo;
-        const updatedVideoUrl = videoUrl.replace('https://streamable.com/', 'https://streamable.com/e/');
+        const videoUrl = product.ProductVideo.replace('https://streamable.com/', 'https://streamable.com/e/');
         const productID = product.ProductID;
         const productTitle = product.ProductTitle;
         const productDescription = product.ProductDescription;
         const currentPrice = parseFloat(product.StartingAmount);
         const expiryDateString = product.Expiry;
+
         const year = parseInt(expiryDateString.substring(0, 4));
         const month = parseInt(expiryDateString.substring(4, 6)) - 1;
         const day = parseInt(expiryDateString.substring(6, 8));
@@ -1644,17 +1692,21 @@ const filteredProducts = products.filter(product => {
         const remainingSeconds = Math.floor((expiryDateUTC - nowUTC) / 1000);
 
         productCard.innerHTML = `
-          <span class="favorite">
-            <i class="fa fa-star"></i>
-          </span>
-          <i class="fas fa-sync-alt refresh-icon"></i>
           <div class="product-video-container">
-            <iframe class="product-video" src="${updatedVideoUrl}" frameborder="0" allowfullscreen></iframe>
+            <iframe class="product-video" src="${videoUrl}" frameborder="0" allowfullscreen></iframe>
           </div>
           <div class="product-info">
-            <h2 class="product-title">${productTitle}</h2>
+            <div class="product-title-icon">
+              <h2 class="product-title">${productTitle}</h2>
+              <div class="icons-container">
+                <span class="favorite"><i class="fa fa-star"></i></span>
+                <i class="fas fa-sync-alt refresh-icon"></i>
+              </div>
+            </div>
             <p class="product-description">${productDescription}</p>
-            <p class="product-price" data-current-price="${currentPrice}">Current Price: R${currentPrice}</p>
+            <p class="product-price" data-current-price="${currentPrice}">
+              Current Price: R${currentPrice}
+            </p>
             <form class="bid-form">
               <input type="number" class="bid-input" placeholder="Enter bid amount" step="0.01" min="${(currentPrice + 100).toFixed(2)}">
               <button type="submit" class="bid-button">Bid</button>
@@ -1712,7 +1764,6 @@ const filteredProducts = products.filter(product => {
           if (bidAmount > currentPrice) {
             priceElement.textContent = `Current Price: R${bidAmount}`;
             priceElement.setAttribute('data-current-price', bidAmount);
-
             bidInput.setAttribute('min', (bidAmount + 100).toFixed(2));
 
             feedbackElement.textContent = 'Processing Bid';
@@ -1780,12 +1831,14 @@ const filteredProducts = products.filter(product => {
         });
 
         productCard.querySelector('.favorite').addEventListener('click', function() {
-                    const productURL = `${window.location.origin}/EDGEHILLGREENS/#${productID}`;
-          navigator.clipboard.writeText(productURL).then(() => {
-            alert('Link saved to clipboard');
-          }).catch(err => {
-            console.error('Failed to copy product URL to clipboard:', err);
-          });
+          const productURL = `${window.location.origin}/EDGEHILLGREENS/#${productID}`;
+          navigator.clipboard.writeText(productURL)
+            .then(() => {
+              alert('Link saved to clipboard');
+            })
+            .catch(err => {
+              console.error('Failed to copy product URL to clipboard:', err);
+            });
         });
 
         refreshPrice(productID, productCard);
@@ -1795,6 +1848,7 @@ const filteredProducts = products.filter(product => {
       console.error('Error fetching products from GitHub:', error);
     });
 }
+
 
 function updateCountdown(remainingSeconds, countdownElement, productCard) {
   if (remainingSeconds > 0) {
@@ -1832,7 +1886,6 @@ function refreshPrice(productID) {
             const bidFiles = files.filter(file => file.name.startsWith(productID) && file.name.endsWith('.json'));
 
             if (bidFiles.length === 0) {
-                console.log('No bids available for this product.');
                 return;
             }
 
@@ -1844,7 +1897,6 @@ function refreshPrice(productID) {
         })
         .then(bids => {
             if (!bids || bids.length === 0) {
-                console.log('No bids available for this product.');
                 return;
             }
 
