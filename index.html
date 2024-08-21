@@ -15,11 +15,9 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H7VK92CL4S"></script>
   <style>
     :root {
-      --primary-color: #3498db;
-      --secondary-color: #2c3e50;
-      --accent-color: #27ae60;
       --text-color: #333;
       --bg-color: #f4f4f4;
+      --brand-color: #27ae60;
     }
 
     * {
@@ -201,7 +199,6 @@ padding-top: 56.25%;
     object-fit: cover;
 }
 
-
     .product-info {
       padding: 15px;
     }
@@ -216,7 +213,7 @@ padding-top: 56.25%;
     .product-price {
       font-size: 1.1rem;
       font-weight: bold;
-      color: var(--accent-color);
+      color: var(--brand-color);
       margin-bottom: 10px;
     }
 
@@ -234,7 +231,7 @@ padding-top: 56.25%;
     }
 
 .bid-button {
-      background-color: var(--accent-color);
+      background-color: var(--brand-color);
       color: white;
       border: none;
       padding: 5px 20px;
@@ -368,7 +365,7 @@ footer {
 #AddProduct {
       width: 66px;
       height: 66px;
-      background-color: #2ecc71;
+      background-color: var(--brand-color);
       border-radius: 12px;
       display: flex;
       justify-content: center;
@@ -462,7 +459,7 @@ footer {
       margin: 0 auto;
       cursor: pointer;
       font-size: 48px;
-      color: #2ecc71;
+      color: var(--brand-color);
       font-weight: bold;
       transition: 0.3s;
       opacity: 1;
@@ -484,7 +481,7 @@ footer {
 
 .product-card2 {
       position: relative;
-      background-color: #2ecc71;
+      background-color: var(--brand-color);
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -573,7 +570,6 @@ footer {
       color: white;
       opacity: 0.5;
     }
-
 
   #search-input {
     width: 100%;
@@ -1190,7 +1186,7 @@ function getListings() {
             const filteredProducts = products.filter(product => product.Seller === ownerId);
 
             if (!filteredProducts || filteredProducts.length === 0) {
-                console.log('There are currently no products listed.');
+                console.log('You have no products currently listed.');
                 return;
             }
 
