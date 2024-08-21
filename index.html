@@ -17,7 +17,7 @@
     :root {
       --text-color: #333;
       --bg-color: #f4f4f4;
-      --brand-color: #27ae60;
+      --brand-color: #59B757;
     }
 
     * {
@@ -91,7 +91,7 @@ body {
 }
 
 .favorite-count.green {
-        background-color: #2ecc71;
+        background-color: var(--brand-color);
         color: white;
         font-size: 0.6rem;
 }
@@ -613,7 +613,7 @@ footer {
 
 .support-button {
     background-color: white;
-    color: #2ecc71;
+    color:  var(--brand-color);
     border: 2px solid transparent;
     border-radius: 25px;
     padding: 5px 10px;
@@ -621,7 +621,8 @@ footer {
     cursor: pointer;
     margin-bottom: 10px;
     margin-top: 10px;
-font-weight: 500;
+font-weight: 550;
+    letter-spacing: 0.9px;
 }
 
 .support-button:hover {
@@ -1235,7 +1236,7 @@ function getListings() {
                         <p class="highest-bidder"></p>
                         <p class="bidder-contact"></p>
                         <p class="bid-time"></p>
-                        <button class="support-button" onclick="window.open('https://pos.snapscan.io/qr/w1hRjQUu', '_blank')">DONATE</button>
+                        <button class="support-button" onclick="window.open('https://pos.snapscan.io/qr/w1hRjQUu', '_blank')">TIP</button>
                         <p class="countdown2"></p>
                         <p class="product-id" style="display: none;">${productID1}</p>
                     </div>
