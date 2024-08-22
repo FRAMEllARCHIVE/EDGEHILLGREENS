@@ -1162,14 +1162,12 @@ function getListings() {
 
     fetch(apiUrl)
         .then(response => {
-
             if (response.status === 403) {
                 throw new Error('403: Forbidden - API rate limit exceeded or access denied.');
             }
             return response.json();
         })
         .then(files => {
-
             if (!Array.isArray(files)) {
                 throw new TypeError('Expected an array of files, but got something else.');
             }
@@ -1183,7 +1181,6 @@ function getListings() {
             return Promise.all(fetchProductPromises);
         })
         .then(products => {
-
             const filteredProducts = products.filter(product => product.Seller === ownerId);
 
             if (!filteredProducts || filteredProducts.length === 0) {
@@ -1192,6 +1189,7 @@ function getListings() {
             }
 
             const productGrid = document.getElementById('productGrid');
+            const productIDs = [];
 
             Array.from(productGrid.children).forEach(child => {
                 if (child.classList.contains('product-card2')) {
@@ -1202,7 +1200,7 @@ function getListings() {
             filteredProducts.forEach(product => {
                 const productCard2 = document.createElement('div');
                 productCard2.classList.add('product-card2');
-                
+
                 const videoUrl = product.ProductVideo;
                 const updatedVideoUrl = videoUrl.replace('https://streamable.com/', 'https://streamable.com/e/');
                 const productID1 = product.ProductID;
@@ -1217,20 +1215,22 @@ function getListings() {
                 const minute = parseInt(expiryDateString.substring(10, 12));
                 const expiryDate = new Date(year, month, day, hour, minute);
 
+                productIDs.push(productID1);
+
                 productCard2.innerHTML = `
                     <div class="product-video-container">
                         <iframe class="product-video" src="${updatedVideoUrl}" frameborder="0" allowfullscreen></iframe>
                     </div>
                     <div class="product-info">
-                    <div class="product-title-icon">
-                        <h2 class="product-title">${productTitle}</h2>
-                        <div class="icons-container">
-                            <span class="favorite">
-                                <i class="fa fa-star"></i>
-                            </span>
-                            <i class="fas fa-sync-alt refresh-icon"></i>
+                        <div class="product-title-icon">
+                            <h2 class="product-title">${productTitle}</h2>
+                            <div class="icons-container">
+                                <span class="favorite">
+                                    <i class="fa fa-star"></i>
+                                </span>
+                                <i class="fas fa-sync-alt refresh-icon"></i>
+                            </div>
                         </div>
-                    </div>
                         <p class="product-description2">${productDescription}</p>
                         <p class="product-price2" data-current-price="${currentPrice}">Current Price: R${currentPrice}</p> 
                         <p class="highest-bidder"></p>
@@ -1246,8 +1246,6 @@ function getListings() {
 
                 const countdownElement2 = productCard2.querySelector('.countdown2');
                 updateCountdown2(expiryDate, countdownElement2, productCard2);
-                setInterval(() => updateCountdown2(expiryDate, countdownElement2, productCard2), 60000);
-                setInterval(() => refreshPrice2(product.ProductID), 60000);
 
                 productCard2.querySelector('.refresh-icon').addEventListener('click', function() {
                     const refreshIcon = this;
@@ -1255,7 +1253,7 @@ function getListings() {
                     setTimeout(() => {
                         refreshIcon.classList.remove('rotate');
                     }, 4444);
-                    refreshPrice2(product.ProductID);
+                    refreshPrice2(productID1);
                 });
 
                 productCard2.querySelector('.favorite').addEventListener('click', function() {
@@ -1267,8 +1265,13 @@ function getListings() {
                     });
                 });
 
-                refreshPrice2(product.ProductID);
+                refreshPrice2(productID1);
             });
+
+            setInterval(() => {
+                productIDs.forEach(productID => refreshPrice2(productID));
+            }, 60000);
+
         })
         .catch(error => {
             console.error('Error fetching products:', error);
@@ -1909,7 +1912,7 @@ function refreshPrice(productID) {
                 const { amount, buyer } = bid;
                 if (amount > highestBid) {
                     highestBid = amount;
-                    chosenBid = bid; // Assign the chosen bid
+                    chosenBid = bid;
                 }
             });
 
