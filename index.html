@@ -1902,20 +1902,20 @@ function refreshPrice(productID) {
 
             const priceElement = productCard.querySelector('.product-price');
             let highestBid = 0;
-            let ownerBid = null;
+            let chosenBid = null;
             const storedOwnerId = localStorage.getItem('OWNER_ID');
 
             bids.forEach(bid => {
                 const { amount, buyer } = bid;
                 if (amount > highestBid) {
                     highestBid = amount;
-                    if (buyer === storedOwnerId) {
-                        ownerBid = amount;
-                    }
+                    chosenBid = bid; // Assign the chosen bid
                 }
             });
 
             if (highestBid > 0) {
+                const ownerBid = chosenBid.buyer === storedOwnerId ? chosenBid.amount : null;
+
                 if (ownerBid !== null) {
                     priceElement.textContent = `Your Bid: R${ownerBid}`;
                 } else {
@@ -1931,6 +1931,7 @@ function refreshPrice(productID) {
             console.error('Error fetching bids from GitHub:', error);
         });
 }
+
 
 window.addEventListener('scroll', function() {
 
