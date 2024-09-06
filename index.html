@@ -12,7 +12,6 @@
   <meta name="description" content="Join the Edgehill Greens Livestock Auction to bid on premium livestock.">
   <meta name="keywords" content="livestock, auction, bidding, cattle, sheep, Edgehill Greens">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7VK92CL4S"></script>
   <style>
     :root {
       --text-color: #333;
@@ -32,7 +31,15 @@ body {
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--bg-color);
-    }
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+main.container {
+    flex: 1;
+}
 
 .container {
             max-width: 1200px;
@@ -251,11 +258,21 @@ padding-top: 56.25%;
     }
 
 footer {
-        padding: 0.95rem;
-        text-align: center;
-        background-color: #333;
-        color: white; 
-        width: 100%;
+    padding: 0.95rem;
+    text-align: center;
+    background-color: #333;
+    color: white; 
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+footer i {
+    margin-top: 11px;
+    color: white;
+    font-size: 2.2rem;
+      margin-bottom: 4px;
 }
 
 #overlay2 {
@@ -371,7 +388,8 @@ footer {
       justify-content: center;
       align-items: center;
       margin: 0 auto;
-      margin-top: 16px;
+      margin-top: 22px;
+      margin-bottom: 33px;
       box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
       cursor: pointer;
       font-size: 48px;
@@ -449,6 +467,7 @@ footer {
 }
 
 #RefreshList {
+    position: relative;
       width: 88px;
       height: 88px;
       background-color: transparent;
@@ -477,7 +496,9 @@ footer {
 #RefreshList:hover i {
       animation: rotateIcon 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
       transform: scale(1.2);
-    }
+      animation-duration: 2s;
+      animation-iteration-count: 5;
+}
 
 .product-card2 {
       position: relative;
@@ -536,22 +557,26 @@ footer {
       font-size: 1.5rem;
       font-weight: bold;
       color: white;
-      margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     }
 
 .product-description2 {
       margin-right: 33px;
-      margin-bottom: 22px;
+      margin-bottom: 11px;
       opacity: 0.9;
     }
 
 .highest-bidder {
+display: none;
       font-size: 1.1rem;
       color: white;
       opacity: 0.8;
     }
 
 .bidder-contact {
+display: none;
       font-size: 1.1rem;
       color: white;
       opacity: 0.8;
@@ -611,22 +636,21 @@ footer {
   outline: none;
 }
 
-.support-button {
-    background-color: white;
-    color:  var(--brand-color);
-    border: 2px solid transparent;
-    border-radius: 25px;
-    padding: 5px 10px;
-    font-size: 16px;
-    cursor: pointer;
+.lock-svg {
+    width: 44px;
+    height: 44px;
+    opacity: 0.9;
+    vertical-align: middle;
     margin-bottom: 10px;
-    margin-top: 10px;
-font-weight: 550;
-    letter-spacing: 0.9px;
 }
 
-.support-button:hover {
-    animation: bounce 0.5s ease infinite;
+.lock-svg.visible {
+    display: inline;
+    animation: bounce 0.6s ease infinite;
+}
+
+.lock-svg.hidden {
+    display: none;
 }
 
 @keyframes bounce {
@@ -634,17 +658,109 @@ font-weight: 550;
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-4px);
+        transform: translateY(-5px);
     }
 }
 
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 3333;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
 
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 90%;
+  border-radius: 22px;
+}
 
+.close {
+  color: #aaa;
+  float: top;
+  font-size: 66px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#agreeTerms {
+  background-color:  var(--brand-color);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 22px;
+  margin: 20px 0;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background-color 0.3s ease;
+}
+
+#agreeTerms:hover {
+  background-color: #45a049;
+}
+
+.product-delete-btn-container {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 33px;
+    height: 33px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    margin-top: 8px;
+}
+
+.delete-product-btn {
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.delete-product-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.delete-product-btn:before {
+    content: '✖';
+    font-size: 20px;
+    color: black;
+    line-height: 1;
+}
 
   </style>
 </head>
 <body>
-  <img src="edgehill2.png" alt="Edgehill Greens Livestock Auction" class="banner">
+<img src="edgehill2.png" alt="Edgehill Greens Livestock Auction" class="banner">
 
 <span class="favorite-count" style="cursor: pointer;" onclick="EditProfile()">
   <i id="profileIcon" class="fas fa-check"></i>
@@ -657,7 +773,6 @@ font-weight: 550;
   <div id="AddProduct" onclick="AddProduct()">
     <i class="fas fa-plus"></i>
   </div>
-<br>
 </div>
     </div>
 
@@ -666,7 +781,7 @@ font-weight: 550;
     </div>
   </div>
 
-<br>
+
     </div>
   </main>
 <br>
@@ -675,8 +790,13 @@ font-weight: 550;
   </div>
 <br><br>
 <footer>
+   <a href="mailto:tjdebeer@gmail.com">
+      <i class="fas fa-envelope"></i>
+   </a>
+<br>
    EDGEHILL GREENS © 2024. <br>
    All Rights Reserved.
+<br>
 </footer>
 
   <form id="profileForm">
@@ -956,18 +1076,129 @@ font-weight: 550;
   <button id="submitButton" type="submit">SUBMIT</button>
 </div>
 
+
+<div id="termsModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModal">&times;</span>
+<br>
+    <h2>Terms & Conditions</h2>
+    <p><strong>Welcome to EDGEHILL GREENS.</strong> </p>
+<br>
+    <p>By using our services, you agree to the following terms and conditions.</p>
+<br>
+    <h3>1. General Terms</h3>
+<br>
+    <p><strong>1.1 Service Description:</strong> EDGEHILL GREENS provides a platform that connects sellers with potential buyers. Our role is strictly limited to facilitating this connection; we do not handle payments, manage transactions, or take responsibility for the final outcome of any sale.</p>
+<br>
+    <p><strong>1.2 User Agreement:</strong> By using our platform, you agree to these Terms and Conditions. If you do not agree, you must cease using our services immediately.</p>
+<br> 
+    <p><strong>1.3 Eligibility:</strong> To use our platform, users must comply with all applicable laws and regulations in their jurisdiction. By using our services, you confirm that you are legally allowed to participate in online auctions and interactions.</p>
+<br>
+    <h3>2. Role and Responsibilities</h3>
+<br>
+    <p><strong>2.1 No Guarantee of Outcome:</strong> EDGEHILL GREENS makes no guarantees regarding the success of any auction, the behavior of any buyer or bidder, or the final price of any item. All sales are conducted between the buyer and bidder, and we are not liable for any disputes or unsatisfactory outcomes.</p>
+<br>
+    <p><strong>2.2 Anonymity:</strong> All transactions and communications on our platform remain anonymous until the auction concludes and the buyer and seller are connected. We do not disclose the identity of any user unless required by law.</p>
+<br>
+    <p><strong>2.3 Connection Fee:</strong> Users are charged a fee for using our platform to connect with bidders. This fee is non-refundable, regardless of the outcome of the auction.</p>
+<br>
+    <h3>3. User Obligations</h3>
+<br>
+    <p><strong>3.1 Accurate Information:</strong> Users are responsible for providing accurate and up-to-date information when using our platform.</p>
+<br>
+    <p><strong>3.2 Compliance with Laws:</strong> Users agree to comply with all applicable laws and regulations when using our services.</p>
+<br>
+    <p><strong>3.3 No Misuse of Platform:</strong> You agree not to misuse our platform by engaging in fraudulent activities, creating fake listings or bids, or violating any of these terms.</p>
+<br>
+    <h3>4. Disclaimers and Limitations of Liability</h3>
+<br>
+    <p><strong>4.1 No Warranties:</strong> EDGEHILL GREENS provides its services "as is" without any warranties or guarantees. We do not endorse or verify any user, bidder, or buyer on our platform.</p>
+<br>
+    <p><strong>4.2 Limitation of Liability:</strong> To the maximum extent permitted by law, EDGEHILL GREENS is not liable for any direct, indirect, incidental, or consequential damages arising from your use of the platform, including but not limited to loss of profits, data, or business opportunities.</p>
+<br>
+    <h3>5. Dispute Resolution</h3>
+<br>
+    <p><strong>5.1 Disputes Between Users:</strong> Any disputes arising between buyers and bidders are solely their responsibility. EDGEHILL GREENS is not a party to any transaction and will not mediate disputes. However, we reserve the right to blacklist or suspend any user account that we deem abusive, harmful, or in violation of these Terms and Conditions. This includes, but is not limited to, situations where bidders fail to respond to the seller’s communications or engage in placing false or misleading bids.</p>
+<br>
+    <p><strong>5.2 Governing Law:</strong> These Terms and Conditions are governed by the laws of South Africa. Any legal disputes will be resolved in the courts of South Africa.</p>
+<br>
+    <h3>6. Amendments</h3>
+<br>
+    <p>EDGEHILL GREENS reserves the right to amend these Terms and Conditions at any time. Users will be notified of any significant changes on our website. Continued use of the platform constitutes acceptance of the revised terms.</p>
+<br>
+    <h3>7. Intellectual Property</h3>
+<br>
+    <p><strong>7.1 Ownership:</strong> All content, systems, branding, logos, and materials provided by EDGEHILL GREENS on the platform are protected by intellectual property laws and remain the exclusive property of EDGEHILL GREENS.</p>
+<br>
+    <p><strong>7.2 User-Generated Content:</strong> By submitting any content (such as listings, descriptions, images, etc.) to the platform, users grant EDGEHILL GREENS a non-exclusive, royalty-free, worldwide license to use, modify, and display such content as necessary for the operation of the platform.</p>
+<br>
+    <h3>8. Privacy and Data Protection</h3>
+<br>
+    <p><strong>8.1 Data Collection:</strong> EDGEHILL GREENS collects and processes certain personal data to facilitate the services provided. This includes contact information and usage data. We are committed to protecting your privacy in accordance with applicable data protection laws.</p>
+<br>
+    <p><strong>8.2 Use of Data:</strong> User data will be used only for the purposes of providing and improving the platform and will not be sold or shared with third parties, except as required by law.</p>
+<br>
+    <p><strong>8.3 Data Security:</strong> While we implement reasonable security measures, EDGEHILL GREENS cannot guarantee the absolute security of user data. By using our platform, you acknowledge the inherent risks involved in transmitting information over the internet.</p>
+<br>
+    <h3>9. Account Suspension and Termination</h3>
+<br>
+    <p><strong>9.1 Grounds for Suspension:</strong> EDGEHILL GREENS reserves the right to suspend, terminate or blacklist user accounts if we believe they are in violation of these Terms and Conditions or engaging in illegal activities.</p>
+<br>
+    <p><strong>9.2 Termination by User:</strong> Users may terminate their account at any time by contacting customer support. Upon termination, all associated data may be deleted or retained as required by law.</p>
+<br>
+    <h3>10. Third-Party Services and Links</h3>
+<br>
+    <p><strong>10.1 Third-Party Services:</strong> Our platform may contain links to third-party websites or services that are not owned or controlled by EDGEHILL GREENS. We are not responsible for the content, policies, or practices of these third parties.</p>
+<br>
+    <p><strong>10.2 No Endorsement:</strong> The inclusion of third-party links on our platform does not imply endorsement or sponsorship by EDGEHILL GREENS.</p>
+<br>
+    <h3>11. Indemnification</h3>
+<br>
+    <p><strong>11.1 User Indemnity:</strong> Users agree to indemnify and hold harmless EDGEHILL GREENS, its employees, officers, and agents from any claims, damages, losses, or expenses arising out of their use of the platform or violation of these Terms and Conditions.</p>
+<br>
+    <h3>12. Contact Information</h3>
+<br>
+    <p>For any questions or concerns regarding these Terms and Conditions, please contact us at [Your Contact Information].</p>
+<br>
+    <button id="agreeTerms">I Agree</button>
+  </div>
+</div>
+
+
+
+
   <script>
 
-const repo2 = 'EDGEHILLGREENS/lllll';
-const repo = 'EDGEHILLGREENS/l';
-const merpmerp = 'Z2hwX2Q0Q';
-const gloopdoop = 'zdSSVFhSzNZ';
-const dloogdloog = 'MXNhUnlxSzIz';
-const herpherp = gloopdoop + dloogdloog;
-const derpderp = 'UEg3clN0Q2hkeDNsSGIwSw==';
-const joojooo = merpmerp + herpherp + derpderp;
-const moo = atob(joojooo);
+window.onload = async function() {
+            const contactId = localStorage.getItem('CONTACT_ID');
 
+            // const currentUrl = window.location.href;
+            // const targetUrl = 'https://framellarchive.github.io/EDGEHILLGREENS/';
+            // if (currentUrl !== targetUrl) {
+            //     window.location.href = 'https://www.google.com';
+            //     return;
+            // }
+
+            if (contactId) {
+                const repoUrl = `https://api.github.com/repos/llllDB/l/contents/`;
+
+                try {
+                    const response = await fetch(repoUrl, { credentials: 'omit' });
+
+                    if (response.ok) {
+                        const files = await response.json();
+                        const fileExists = files.some(file => file.name === contactId);
+
+                        if (fileExists) {
+                            window.location.href = 'https://www.google.com';
+                        }
+                    } else {
+                    }
+                } catch (error) {
+                    console.error('Network error occurred:', error);
+                }
+            }
+        };
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -1053,6 +1284,25 @@ function renderProductTags() {
   });
 }
 
+const llllBLACKDB = 'llllDB/l';
+const llllDB = 'lllllDB/l';
+const llllPDB = 'EDGEHILLGREENS/l';
+const merpmerp = 'Z2hwX2Q0Q';
+const gloopdoop = 'zdSSVFhSzNZ';
+const dloogdloog = 'MXNhUnlxSzIz';
+const herpherp = gloopdoop + dloogdloog;
+const derpderp = 'UEg3clN0Q2hkeDNsSGIwSw==';
+const joojooo = merpmerp + herpherp + derpderp;
+const moo = atob(joojooo);
+const derpderp2 = 'fJUmBEWVYuCEC0Ub0H9';
+const joojooo2 = 'ghp_BuSjlpYUO8TnKx42b';
+const moo2 = joojooo2 + derpderp2;
+const derpderp3 = 'ghp_SRSD21Osos5Eo';
+const joojooo3 = 'Mf6GOzCl8IsZK5GJI22HlgF';
+const moo3 = joojooo3 + derpderp3;
+
+
+
 document.getElementById('submitButton').addEventListener('click', function(event) {
     event.preventDefault();
 
@@ -1100,7 +1350,7 @@ document.getElementById('submitButton').addEventListener('click', function(event
             Tags: formattedTags
         };
 
-        createFile(repo, productData, moo)
+        createFile(llllPDB, productData, moo)
         .then(() => {
             console.log('Product added successfully');
             hideProductForm();
@@ -1148,17 +1398,26 @@ function hideProductForm() {
 }
 
 function AddProduct() {
+  const ownerId = localStorage.getItem('OWNER_ID');
+  
+  if (!ownerId) {
+    EditProfile();
+    alert("PLEASE REGISTER ACCOUNT");
+    return;
+  }
+
   const overlay = document.getElementById('overlay');
   const productForm = document.getElementById('productForm');
   overlay.style.display = 'block';
   productForm.style.display = 'block';
-    addProductTag('livestock');
-    addProductTag('South Africa');
+  addProductTag('livestock');
+  addProductTag('South Africa');
 }
+
 
 function getListings() {
     const ownerId = localStorage.getItem('OWNER_ID');
-    const apiUrl = `https://api.github.com/repos/${repo}/contents`;
+    const apiUrl = `https://api.github.com/repos/${llllPDB}/contents`;
 
     fetch(apiUrl)
         .then(response => {
@@ -1191,11 +1450,7 @@ function getListings() {
             const productGrid = document.getElementById('productGrid');
             const productIDs = [];
 
-            Array.from(productGrid.children).forEach(child => {
-                if (child.classList.contains('product-card2')) {
-                    productGrid.removeChild(child);
-                }
-            });
+            productGrid.innerHTML = '';
 
             filteredProducts.forEach(product => {
                 const productCard2 = document.createElement('div');
@@ -1218,6 +1473,9 @@ function getListings() {
                 productIDs.push(productID1);
 
                 productCard2.innerHTML = `
+                        <div class="product-delete-btn-container">
+                            <button class="delete-product-btn"></button>
+                       </div>
                     <div class="product-video-container">
                         <iframe class="product-video" src="${updatedVideoUrl}" frameborder="0" allowfullscreen></iframe>
                     </div>
@@ -1232,11 +1490,17 @@ function getListings() {
                             </div>
                         </div>
                         <p class="product-description2">${productDescription}</p>
-                        <p class="product-price2" data-current-price="${currentPrice}">Current Price: R${currentPrice}</p> 
+                        <p class="product-price2" data-current-price="${currentPrice}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="lock-svg" style="vertical-align: middle;">
+                                <path fill="#FFFFFF" d="M389.2,245.9H178.8v-89.4c0-42.5,34.5-77,77-77s77,34.5,77,77v23c0,11.7,9.5,21.2,21.2,21.2
+                                c11.7,0,21.2-9.5,21.2-21.2v-23C375.4,90.6,321.7,37,255.8,37S136.3,90.6,136.3,156.5v89.4h-13.9c-8.5,0-15.3,6.9-15.3,15.3V459
+                                c0,8.5,6.9,15.3,15.3,15.3h266.8c8.5,0,15.3-6.9,15.3-15.3V261.2C404.6,252.8,397.7,245.9,389.2,245.9z"/>
+                            </svg>
+                            Current Price: R${currentPrice}
+                        </p>
                         <p class="highest-bidder"></p>
                         <p class="bidder-contact"></p>
                         <p class="bid-time"></p>
-                        <button class="support-button" onclick="window.open('https://pos.snapscan.io/qr/w1hRjQUu', '_blank')">TIP</button>
                         <p class="countdown2"></p>
                         <p class="product-id" style="display: none;">${productID1}</p>
                     </div>
@@ -1245,7 +1509,17 @@ function getListings() {
                 productGrid.appendChild(productCard2);
 
                 const countdownElement2 = productCard2.querySelector('.countdown2');
-                updateCountdown2(expiryDate, countdownElement2, productCard2);
+                updateCountdown2(expiryDate, countdownElement2, productCard2, productID1);
+
+                productCard2.querySelector('.delete-product-btn').addEventListener('click', function() {
+                    const confirmed = confirm('Are you sure you want to delete this product? This action cannot be undone.');
+
+                    if (confirmed) {
+                        const fileName = `${productID1}.json`;
+                        deleteFile(llllPDB, fileName, moo); 
+                        productCard2.remove();
+                    }
+                });
 
                 productCard2.querySelector('.refresh-icon').addEventListener('click', function() {
                     const refreshIcon = this;
@@ -1253,7 +1527,12 @@ function getListings() {
                     setTimeout(() => {
                         refreshIcon.classList.remove('rotate');
                     }, 4444);
-                    refreshPrice2(productID1);
+                    refreshPrice2(productIDs);
+
+            intervalId = setInterval(() => { // Initialize intervalId here
+                refreshPrice2(productIDs);
+            }, 120000);
+
                 });
 
                 productCard2.querySelector('.favorite').addEventListener('click', function() {
@@ -1264,14 +1543,9 @@ function getListings() {
                         console.error('Failed to copy product URL to clipboard:', err);
                     });
                 });
-
-                refreshPrice2(productID1);
             });
 
-            setInterval(() => {
-                productIDs.forEach(productID => refreshPrice2(productID));
-            }, 60000);
-
+            refreshPrice2(productIDs);
         })
         .catch(error => {
             console.error('Error fetching products:', error);
@@ -1288,35 +1562,242 @@ function getListings() {
 
 document.addEventListener('DOMContentLoaded', getListings);
 
-function updateCountdown2(expiryDate, countdownElement, productCard2) {
-    const now = new Date();
-    const expiryDateObj = new Date(expiryDate);
+function updateCountdown2(expiryDate, countdownElement, productCard2, productID1) {
 
-    const timeLeft = Math.floor((expiryDateObj - now) / (1000 * 60 * 60 * 24));
+    const expiryDateUTC = new Date(expiryDate).getTime();
+    let remainingSeconds = Math.floor((expiryDateUTC - Date.now()) / 1000);
+    let intervalId;
 
-    if (timeLeft > 0) {
-        const hours = Math.floor(((expiryDateObj - now) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor(((expiryDateObj - now) % (1000 * 60 * 60)) / (1000 * 60));
+    function update() {
+        if (remainingSeconds > 0) {
+            const days = Math.floor(remainingSeconds / (60 * 60 * 24));
+            const hours = Math.floor((remainingSeconds % (60 * 60 * 24)) / (60 * 60));
+            const minutes = Math.floor((remainingSeconds % (60 * 60)) / 60);
+            const seconds = remainingSeconds % 60;
 
-        countdownElement.textContent = `Auction ends: ${timeLeft}d ${hours}h ${minutes}m`;
-    } else {
-        const twoWeeksInDays = 14;
-        const daysSinceExpiry = Math.floor((now - expiryDateObj) / (1000 * 60 * 60 * 24));
+            countdownElement.textContent = `Auction ends: ${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-        if (daysSinceExpiry <= twoWeeksInDays) {
-            const daysUntilAutoDelete = twoWeeksInDays - daysSinceExpiry;
-            
-            countdownElement.textContent = `${daysUntilAutoDelete} days left`;
-
-            const videoContainer = productCard2.querySelector('.product-video-container');
-            if (videoContainer && videoContainer.innerHTML !== '') {
-                videoContainer.innerHTML = '';
-                videoContainer.style.backgroundColor = 'black';
+            const lockIcon = productCard2.querySelector('.lock-svg');
+            if (lockIcon) {
+                lockIcon.classList.remove('visible');
+                lockIcon.classList.add('hidden');
             }
+
+            remainingSeconds--;
         } else {
-            productCard2.remove();
+            const twoWeeksInDays = 14;
+            const daysSinceExpiry = Math.floor((Date.now() - expiryDateUTC) / (1000 * 60 * 60 * 24));
+
+            if (daysSinceExpiry <= twoWeeksInDays) {
+                const daysUntilAutoDelete = twoWeeksInDays - daysSinceExpiry;
+                countdownElement.textContent = `${daysUntilAutoDelete} days left`;
+
+                const lockIcon = productCard2.querySelector('.lock-svg');
+                if (lockIcon) {
+                    lockIcon.classList.remove('hidden');
+                    lockIcon.classList.add('visible');
+                }
+
+                const priceElement = productCard2.querySelector('.product-price2');
+                if (priceElement) {
+                    priceElement.style.cursor = 'pointer';
+                    priceElement.addEventListener('click', function() {
+                        unlockDetails(priceElement.getAttribute('data-current-price'), productCard2.querySelector('.product-id').textContent);
+                    });
+                }
+
+                const videoContainer = productCard2.querySelector('.product-video-container');
+                if (videoContainer) {
+                    videoContainer.remove();
+                    const productInfo = productCard2.querySelector('.product-info');
+                    if (productInfo) {
+                        productInfo.style.marginTop = '44px';
+                    }
+                }
+
+                const refreshIcon = productCard2.querySelector('.refresh-icon');
+                if (refreshIcon) {
+                    refreshIcon.style.display = 'none';
+                }
+                const favoriteIcon = productCard2.querySelector('.favorite');
+                if (favoriteIcon) {
+                    favoriteIcon.style.display = 'none';
+                }
+
+                checkPaymentStatus(productID1, productCard2);
+            } else {
+                productCard2.remove();
+            }
+            clearInterval(intervalId);
         }
     }
+    update();
+    intervalId = setInterval(update, 1000);
+}
+
+function deleteFile(llllPDB, fileName, moo) {
+    const apiUrl = `https://api.github.com/repos/${llllPDB}/contents/${fileName}`;
+
+    fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+            'Authorization': `token ${moo}`,
+            'Accept': 'application/vnd.github.v3+json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch file details.');
+        }
+        return response.json();
+    })
+    .then(fileData => {
+        const sha = fileData.sha;
+
+        return fetch(apiUrl, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `token ${moo}`,
+                'Accept': 'application/vnd.github.v3+json'
+            },
+            body: JSON.stringify({
+                message: `Deleting file ${fileName}`,
+                sha: sha
+            })
+        });
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to delete the file.');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(` successfully deleted.`);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to delete the product. Please try again later.');
+    });
+}
+
+function convertToNumericID(nonNumericID) {
+    
+    const first12Digits = nonNumericID.slice(0, 12);
+    const remainingPart = nonNumericID.slice(12);
+
+    function hashCode(str) {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+            const char = str.charCodeAt(i);
+            hash = (hash << 5) - hash + char;
+            hash = hash & hash;
+        }
+        return hash;
+    }
+
+    const hashedPart = Math.abs(hashCode(remainingPart)) % 1000000000; 
+    const numericID = first12Digits + String(hashedPart).padStart(9, '0');
+    return numericID;
+}
+
+function checkPaymentStatus(paymentID, productCard2) {
+    const snap1 = '7136101f';
+    const snap2 = '-cafd-4db8';
+    const snap3 = '-bd4a-74a2';
+    const snap4 = '94b7b434';
+    const snap5 = ':';
+
+    const snapsnapsnapsnap = snap1 + snap2 + snap3 + snap4 + snap5;
+
+    let numericPaymentID = paymentID;
+    if (isNaN(paymentID)) {
+        numericPaymentID = convertToNumericID(paymentID);
+    }
+
+    const url = `https://pos.snapscan.io/merchant/api/v1/payments/${numericPaymentID}`;
+
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Basic ' + btoa(snapsnapsnapsnap),
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log(`Response received for Payment ID: ${numericPaymentID}`);
+            return response.json();
+        } else if (response.status === 404) {
+            console.log(`Payment ID ${numericPaymentID} not found.`);
+            return Promise.reject('Payment ID not found');
+        } else {
+            console.log(`Unexpected error occurred for Payment ID: ${numericPaymentID}`);
+            return Promise.reject('An unexpected error occurred');
+        }
+    })
+    .then(result => {
+        console.log(`Payment result for Payment ID ${numericPaymentID}:`, result);
+
+        const lockIcon = productCard2.querySelector('.lock-svg');
+        const highestBidder = productCard2.querySelector('.highest-bidder');
+        const bidderContact = productCard2.querySelector('.bidder-contact');
+        
+        if (result.status === 'completed') {
+            console.log(`Payment for Payment ID ${numericPaymentID} is completed.`);
+            if (lockIcon) {
+                lockIcon.classList.remove('visible');
+                lockIcon.classList.add('hidden');
+            }
+            if (highestBidder) {
+                highestBidder.style.display = 'block';
+            }
+            if (bidderContact) {
+                bidderContact.style.display = 'block';
+            }
+        } else {
+            console.log(`Payment for Payment ID ${numericPaymentID} is not completed.`);
+            if (lockIcon) {
+                lockIcon.classList.remove('hidden');
+                lockIcon.classList.add('visible');
+            }
+            if (highestBidder) {
+                highestBidder.style.display = 'none';
+            }
+            if (bidderContact) {
+                bidderContact.style.display = 'none';
+            }
+        }
+    })
+    .catch(error => {
+        console.error(`Error checking payment status for Payment ID ${numericPaymentID}:`, error);
+        const lockIcon = productCard2.querySelector('.lock-svg');
+        const highestBidder = productCard2.querySelector('.highest-bidder');
+        const bidderContact = productCard2.querySelector('.bidder-contact');
+        if (lockIcon) {
+            lockIcon.classList.remove('hidden');
+            lockIcon.classList.add('visible');
+        }
+        if (highestBidder) {
+            highestBidder.style.display = 'none';
+        }
+        if (bidderContact) {
+            bidderContact.style.display = 'none';
+        }
+    });
+}
+
+
+function unlockDetails(currentPrice, productID1) {
+    const COMMISSION = currentPrice * 1;
+
+    let numericProductID = productID1;
+    if (isNaN(productID1)) {
+        numericProductID = convertToNumericID(productID1);
+    }
+    
+    const url = `https://pos.snapscan.io/qr/w1hRjQUu?amount=${COMMISSION}&id=${numericProductID}`;
+    window.open(url, '_blank');
 }
 
 function getUTCTimestamp() {
@@ -1331,8 +1812,8 @@ function getUTCTimestamp() {
   return formattedTimestamp;
 }
 
-function refreshPrice2(productID) {
-    const apiUrl = `https://api.github.com/repos/${repo2}/contents`;
+function refreshPrice2(productIDs) {
+    const apiUrl = `https://api.github.com/repos/${llllDB}/contents`;
 
     fetch(apiUrl)
         .then(response => {
@@ -1346,7 +1827,9 @@ function refreshPrice2(productID) {
                 throw new TypeError('Expected an array of files');
             }
 
-            const bidFiles = files.filter(file => file.name.startsWith(productID) && file.name.endsWith('.json'));
+            const bidFiles = files.filter(file =>
+                productIDs.some(id => file.name.startsWith(id) && file.name.endsWith('.json'))
+            );
 
             const fetchBidPromises = bidFiles.map(file =>
                 fetch(file.download_url).then(response => response.json())
@@ -1355,48 +1838,63 @@ function refreshPrice2(productID) {
             return Promise.all(fetchBidPromises);
         })
         .then(bids => {
-            if (!bids || bids.length === 0) {
-                return;
-            }
+            productIDs.forEach(productID => {
+                const productCard = Array.from(document.querySelectorAll('.product-card2'))
+                    .find(card => card.querySelector('.product-id').textContent === productID);
 
-            let highestBid = 0;
-            let highestBidder = '';
-            let contactDetails = 'N/A';
-            let bidTime = 'N/A';
+                if (productCard) {
+                    let highestBid = 0;
+                    let highestBidder = '';
+                    let contactDetails = 'N/A';
+                    let bidTime = 'N/A';
 
-            bids.forEach(bid => {
-                const bidAmount = parseFloat(bid.amount);
+                    bids.forEach(bid => {
+                        if (bid.productID === productID) {
+                            const bidAmount = parseFloat(bid.amount);
+                            if (bidAmount > highestBid) {
+                                highestBid = bidAmount;
+                                highestBidder = bid.buyer ? bid.buyer.substring(14) : 'N/A';
+                                contactDetails = bid.contactDetails || 'N/A';
+                                bidTime = bid.timeStamp || 'N/A';
+                            }
+                        }
+                    });
 
-                if (bidAmount > highestBid) {
-                    highestBid = bidAmount;
-                    highestBidder = bid.buyer.substring(14) || 'N/A';
-                    contactDetails = bid.contactDetails || 'N/A';
-                    bidTime = bid.timeStamp || 'N/A';
+                    const priceElement = productCard.querySelector('.product-price2');
+                    if (highestBid > 0) {
+                        priceElement.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="lock-svg">
+                                <path fill="#FFFFFF" d="M389.2,245.9H178.8v-89.4c0-42.5,34.5-77,77-77s77,34.5,77,77v23c0,11.7,9.5,21.2,21.2,21.2
+                                c11.7,0,21.2-9.5,21.2-21.2v-23C375.4,90.6,321.7,37,255.8,37S136.3,90.6,136.3,156.5v89.4h-13.9c-8.5,0-15.3,6.9-15.3,15.3V459
+                                c0,8.5,6.9,15.3,15.3,15.3h266.8c8.5,0,15.3-6.9,15.3-15.3V261.2C404.6,252.8,397.7,245.9,389.2,245.9z"/>
+                            </svg>
+                            Current Price: R${highestBid}
+                        `;
+                        priceElement.setAttribute('data-current-price', highestBid);
+                    } else {
+                        priceElement.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="lock-svg hidden">
+                                <path fill="#FFFFFF" d="M389.2,245.9H178.8v-89.4c0-42.5,34.5-77,77-77s77,34.5,77,77v23c0,11.7,9.5,21.2,21.2,21.2
+                                c11.7,0,21.2-9.5,21.2-21.2v-23C375.4,90.6,321.7,37,255.8,37S136.3,90.6,136.3,156.5v89.4h-13.9c-8.5,0-15.3,6.9-15.3,15.3V459
+                                c0,8.5,6.9,15.3,15.3,15.3h266.8c8.5,0,15.3-6.9,15.3-15.3V261.2C404.6,252.8,397.7,245.9,389.2,245.9z"/>
+                            </svg>
+                            No bids yet
+                        `;
+                        priceElement.setAttribute('data-current-price', '0');
+                    }
+
+                    const highestBidderElement = productCard.querySelector('.highest-bidder');
+                    highestBidderElement.textContent = highestBidder === 'N/A' ? '' : `Highest Bidder: ${highestBidder}`;
+
+                    const contactDetailsElement = productCard.querySelector('.bidder-contact');
+                    contactDetailsElement.textContent = contactDetails === 'N/A' ? '' : `no. ${formatContactNumber(contactDetails)}`;
+
+                    const bidTimeElement = productCard.querySelector('.bid-time');
+                    bidTimeElement.textContent = bidTime === 'N/A' ? '' : `${formatTimestamp(bidTime)}`;
+                } else {
+                    console.log('Product card not found for ID:', productID);
                 }
             });
-
-            if (contactDetails !== 'N/A') {
-                contactDetails = formatContactNumber(contactDetails);
-            }
-
-            const productCard2 = Array.from(document.querySelectorAll('.product-card2'))
-                .find(card => card.querySelector('.product-id').textContent === productID);
-
-            if (productCard2) {
-                const priceElement = productCard2.querySelector('.product-price2');
-                priceElement.textContent = `Current Price: R${highestBid}`;
-                priceElement.setAttribute('data-current-price', highestBid);
-
-                const highestBidderElement = productCard2.querySelector('.highest-bidder');
-                highestBidderElement.textContent = `Highest Bidder: ${highestBidder}`;
-
-                const contactDetailsElement = productCard2.querySelector('.bidder-contact');
-                contactDetailsElement.textContent = `no. ${contactDetails}`;
-                
-                const formattedBidTime = formatTimestamp(bidTime);
-                const bidTimeElement = productCard2.querySelector('.bid-time');
-                bidTimeElement.textContent = `${formattedBidTime}`;
-            }
         })
         .catch(error => {
             console.error('Error fetching bids for refresh:', error);
@@ -1495,6 +1993,16 @@ document.getElementById('saveProfile').addEventListener('click', function() {
     return;
   }
 
+  document.getElementById('termsModal').style.display = 'block';
+});
+
+document.getElementById('agreeTerms').addEventListener('click', function() {
+  const name = document.getElementById('nameInput').value;
+  let phone = document.getElementById('phoneInput').value;
+  const countrycode = document.getElementById('countryCodeInput').value;
+
+  phone = phone.replace(/\s+/g, '');
+
   const timestamp = getUTCTimestamp();
   const newTimestampedName = `${timestamp}${name}`;
 
@@ -1508,7 +2016,14 @@ document.getElementById('saveProfile').addEventListener('click', function() {
   localStorage.setItem('COUNTRY_CODE', countrycode);
   updateProfileIcon();
   CloseProfileForm();
+
+  document.getElementById('termsModal').style.display = 'none';
 });
+
+document.getElementById('closeModal').addEventListener('click', function() {
+  document.getElementById('termsModal').style.display = 'none';
+});
+
 
 document.getElementById('deleteProfile').addEventListener('click', function() {
   localStorage.removeItem('OWNER_ID');
@@ -1631,7 +2146,7 @@ function fetchProducts() {
 
   const formattedTags = tags.map(formatTag);
 
-  fetch(`https://api.github.com/repos/${repo}/contents`)
+  fetch(`https://api.github.com/repos/${llllPDB}/contents`)
     .then(response => response.json())
     .then(files => {
       const productFiles = files.filter(file => file.name.endsWith('.json'));
@@ -1783,10 +2298,10 @@ function fetchProducts() {
             const bidFileContent = JSON.stringify(bidData, null, 2);
             const encodedContent = btoa(bidFileContent);
 
-            fetch(`https://api.github.com/repos/${repo2}/contents/${bidFileName}`, {
+            fetch(`https://api.github.com/repos/${llllDB}/contents/${bidFileName}`, {
               method: 'PUT',
               headers: {
-                'Authorization': `token ${moo}`,
+                'Authorization': `token ${moo2}`,
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify({
@@ -1801,8 +2316,7 @@ function fetchProducts() {
               return response.json();
             })
             .then(() => {
-              feedbackElement.textContent = 'Bid successfully processed and recorded.';
-              refreshPrice(productID1, productCard);
+              feedbackElement.textContent = 'Bid is being processed and recorded.';
             })
             .catch(error => {
               feedbackElement.textContent = 'Bid processed but failed to record.';
@@ -1845,7 +2359,6 @@ function fetchProducts() {
     });
 }
 
-
 function updateCountdown(remainingSeconds, countdownElement, productCard) {
   if (remainingSeconds > 0) {
     const days = Math.floor(remainingSeconds / (60 * 60 * 24));
@@ -1874,7 +2387,7 @@ function getUTCTimestamp() {
 }
 
 function refreshPrice(productID) {
-    const apiUrl = `https://api.github.com/repos/${repo2}/contents`;
+    const apiUrl = `https://api.github.com/repos/${llllDB}/contents`;
     
     fetch(apiUrl)
         .then(response => response.json())
@@ -1935,7 +2448,6 @@ function refreshPrice(productID) {
         });
 }
 
-
 window.addEventListener('scroll', function() {
 
   var profileImage = document.querySelector(".profile-image");
@@ -1950,12 +2462,12 @@ window.addEventListener('scroll', function() {
   }
 }, { passive: true });
 
-function createFile(repo, productData, moo) {
+function createFile(llllPDB, productData, moo) {
 
   const fileName = `${productData.ProductID}.json`;
   const content = JSON.stringify(productData, null, 2);
   const encodedContent = btoa(content);
-  const apiUrl = `https://api.github.com/repos/${repo}/contents/${fileName}`;
+  const apiUrl = `https://api.github.com/repos/${llllPDB}/contents/${fileName}`;
 
   return fetch(apiUrl, {
     method: 'PUT',
@@ -1975,13 +2487,6 @@ function createFile(repo, productData, moo) {
     return response.json();
   });
 }
-
-//GOOGLE ANALYTICS
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-H7VK92CL4S');
 
   </script>
 </body>
