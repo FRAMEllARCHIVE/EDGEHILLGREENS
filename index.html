@@ -149,7 +149,7 @@ main.container {
 
 .product-card .product-title {
       font-size: 1.2rem;
-  margin: 0;
+      margin: 0;
 }
 
 .product-card .refresh-icon {
@@ -751,7 +751,7 @@ display: none;
 }
 
 .delete-product-btn:before {
-    content: 'âœ–';
+    content: 'Ã¢Å“â€“';
     font-size: 20px;
     color: black;
     line-height: 1;
@@ -794,7 +794,7 @@ display: none;
       <i class="fas fa-envelope"></i>
    </a>
 <br>
-   EDGEHILL GREENS Â© 2024. <br>
+   EDGEHILL GREENS Ã‚Â© 2024. <br>
    All Rights Reserved.
 <br>
 </footer>
@@ -870,10 +870,10 @@ display: none;
     <option value="+242" data-country="Congo" data-code="+242">Congo</option>
     <option value="+682" data-country="Cook Islands" data-code="+682">Cook Islands</option>
     <option value="+506" data-country="Costa Rica" data-code="+506">Costa Rica</option>
-    <option value="+225" data-country="CÃ´te d'Ivoire" data-code="+225">CÃ´te d'Ivoire</option>
+    <option value="+225" data-country="CÃƒÂ´te d'Ivoire" data-code="+225">CÃƒÂ´te d'Ivoire</option>
     <option value="+385" data-country="Croatia" data-code="+385">Croatia</option>
     <option value="+53" data-country="Cuba" data-code="+53">Cuba</option>
-    <option value="+599" data-country="CuraÃ§ao" data-code="+599">CuraÃ§ao</option>
+    <option value="+599" data-country="CuraÃƒÂ§ao" data-code="+599">CuraÃƒÂ§ao</option>
     <option value="+357" data-country="Cyprus" data-code="+357">Cyprus</option>
     <option value="+420" data-country="Czech Republic" data-code="+420">Czech Republic</option>
     <option value="+45" data-country="Denmark" data-code="+45">Denmark</option>
@@ -992,7 +992,7 @@ display: none;
     <option value="+40" data-country="Romania" data-code="+40">Romania</option>
     <option value="+7" data-country="Russia" data-code="+7">Russia</option>
     <option value="+250" data-country="Rwanda" data-code="+250">Rwanda</option>
-    <option value="+590" data-country="Saint BarthÃ©lemy" data-code="+590">Saint BarthÃ©lemy</option>
+    <option value="+590" data-country="Saint BarthÃƒÂ©lemy" data-code="+590">Saint BarthÃƒÂ©lemy</option>
     <option value="+290" data-country="Saint Helena" data-code="+290">Saint Helena</option>
     <option value="+1" data-country="Saint Kitts and Nevis" data-code="+1">Saint Kitts and Nevis</option>
     <option value="+1" data-country="Saint Lucia" data-code="+1">Saint Lucia</option>
@@ -1118,7 +1118,7 @@ display: none;
 <br>
     <h3>5. Dispute Resolution</h3>
 <br>
-    <p><strong>5.1 Disputes Between Users:</strong> Any disputes arising between buyers and bidders are solely their responsibility. EDGEHILL GREENS is not a party to any transaction and will not mediate disputes. However, we reserve the right to blacklist or suspend any user account that we deem abusive, harmful, or in violation of these Terms and Conditions. This includes, but is not limited to, situations where bidders fail to respond to the sellerâ€™s communications or engage in placing false or misleading bids.</p>
+    <p><strong>5.1 Disputes Between Users:</strong> Any disputes arising between buyers and bidders are solely their responsibility. EDGEHILL GREENS is not a party to any transaction and will not mediate disputes. However, we reserve the right to blacklist or suspend any user account that we deem abusive, harmful, or in violation of these Terms and Conditions. This includes, but is not limited to, situations where bidders fail to respond to the sellerÃ¢â‚¬â„¢s communications or engage in placing false or misleading bids.</p>
 <br>
     <p><strong>5.2 Governing Law:</strong> These Terms and Conditions are governed by the laws of South Africa. Any legal disputes will be resolved in the courts of South Africa.</p>
 <br>
@@ -1715,7 +1715,7 @@ function checkPaymentStatus(paymentID, productCard2) {
         numericPaymentID = convertToNumericID(paymentID);
     }
 
-    const url = `https://pos.snapscan.io/merchant/api/v1/payments/${numericPaymentID}`;
+    const url = `https://pos.snapscan.io/merchant/api/v1/payments?merchantReference=${numericPaymentID}`;
 
     fetch(url, {
         method: 'GET',
@@ -1726,51 +1726,60 @@ function checkPaymentStatus(paymentID, productCard2) {
     })
     .then(response => {
         if (response.ok) {
-            console.log(`Response received for Payment ID: ${numericPaymentID}`);
+            console.log(`Response received for Merchant Reference: ${numericPaymentID}`);
             return response.json();
         } else if (response.status === 404) {
-            console.log(`Payment ID ${numericPaymentID} not found.`);
-            return Promise.reject('Payment ID not found');
+            console.log(`Merchant Reference ${numericPaymentID} not found.`);
+            return Promise.reject('Merchant Reference not found');
         } else {
-            console.log(`Unexpected error occurred for Payment ID: ${numericPaymentID}`);
+            console.log(`Unexpected error occurred for Merchant Reference: ${numericPaymentID}`);
             return Promise.reject('An unexpected error occurred');
         }
     })
-    .then(result => {
-        console.log(`Payment result for Payment ID ${numericPaymentID}:`, result);
+    .then(results => {
+        const payments = results.filter(payment => payment.merchantReference === numericPaymentID); // Filter payments by merchantReference
 
-        const lockIcon = productCard2.querySelector('.lock-svg');
-        const highestBidder = productCard2.querySelector('.highest-bidder');
-        const bidderContact = productCard2.querySelector('.bidder-contact');
-        
-        if (result.status === 'completed') {
-            console.log(`Payment for Payment ID ${numericPaymentID} is completed.`);
-            if (lockIcon) {
-                lockIcon.classList.remove('visible');
-                lockIcon.classList.add('hidden');
-            }
-            if (highestBidder) {
-                highestBidder.style.display = 'block';
-            }
-            if (bidderContact) {
-                bidderContact.style.display = 'block';
-            }
-        } else {
-            console.log(`Payment for Payment ID ${numericPaymentID} is not completed.`);
-            if (lockIcon) {
-                lockIcon.classList.remove('hidden');
-                lockIcon.classList.add('visible');
-            }
-            if (highestBidder) {
-                highestBidder.style.display = 'none';
-            }
-            if (bidderContact) {
-                bidderContact.style.display = 'none';
-            }
+        if (payments.length === 0) {
+            console.log(`No payments found for Merchant Reference ${numericPaymentID}.`);
+            return;
         }
+
+        payments.forEach(payment => {
+            console.log(`Payment result for Merchant Reference ${numericPaymentID}:`, payment);
+
+            const lockIcon = productCard2.querySelector('.lock-svg');
+            const highestBidder = productCard2.querySelector('.highest-bidder');
+            const bidderContact = productCard2.querySelector('.bidder-contact');
+
+            if (payment.status === 'completed') {
+                console.log(`Payment for Merchant Reference ${numericPaymentID} is completed.`);
+                if (lockIcon) {
+                    lockIcon.classList.remove('visible');
+                    lockIcon.classList.add('hidden');
+                }
+                if (highestBidder) {
+                    highestBidder.style.display = 'block';
+                }
+                if (bidderContact) {
+                    bidderContact.style.display = 'block';
+                }
+            } else {
+                console.log(`Payment for Merchant Reference ${numericPaymentID} is not completed.`);
+                if (lockIcon) {
+                    lockIcon.classList.remove('hidden');
+                    lockIcon.classList.add('visible');
+                }
+                if (highestBidder) {
+                    highestBidder.style.display = 'none';
+                }
+                if (bidderContact) {
+                    bidderContact.style.display = 'none';
+                }
+            }
+        });
     })
     .catch(error => {
-        console.error(`Error checking payment status for Payment ID ${numericPaymentID}:`, error);
+        console.error(`Error checking payment status for Merchant Reference ${numericPaymentID}:`, error);
         const lockIcon = productCard2.querySelector('.lock-svg');
         const highestBidder = productCard2.querySelector('.highest-bidder');
         const bidderContact = productCard2.querySelector('.bidder-contact');
